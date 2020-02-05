@@ -136,9 +136,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\facemaskrealname.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\search.png" />
   </ItemGroup>
   <ItemGroup>
