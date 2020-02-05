@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Taiwan_AskFaceMaskApp.AppShell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:Taiwan_AskFaceMaskApp.Pages"
+    mc:Ignorable="d">
+    <Shell.FlyoutHeader>
+        <StackLayout>
+            <Image Source="facemaskrealname.png" />
+        </StackLayout>
+    </Shell.FlyoutHeader>
+    <FlyoutItem Title="搜尋藥局" Icon="drugstore.png" Route="drugstore">
+        <Tab Title="地圖搜尋" Icon="search.png">
+            <ShellContent>
+                <pages:MainPage Title="地圖搜尋" />
+            </ShellContent>
+        </Tab>
+        <Tab Title="藥局列表" Icon="drugstore.png">
+            <ShellContent>
+                <pages:DrugStoresPage Title="藥局列表" />
+            </ShellContent>
+        </Tab>
+    </FlyoutItem>
+    <MenuItem Clicked="MohwNewsMenuItem_Clicked" IconImageSource="news.png" Text="查看 衛福部 最新消息" />
+    <MenuItem Clicked="CallPhoneMenuItem_Clicked" IconImageSource="callphone.png" Text="撥打防疫專線 1922" />
+
+</Shell>
