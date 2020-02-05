@@ -40,59 +40,80 @@ namespace Taiwan_AskFaceMaskApp.Services
         private string rootFolder { get { return Xamarin.Essentials.FileSystem.AppDataDirectory; } }
         public DbService()
         {
-            //DrugStoresDbConnection.CreateTable<Models.DrugStore>();
             
-            //if(TableExists("DrugStore"))
-                BuildDrugStoreBaseData();
+            
+            //if(!TableExists("DrugStore"))
+            BuildDrugStoreBaseData();
 
         }
 
         private async void BuildDrugStoreBaseData()
         {
             var drugStoreData = string.Empty;
-            var dataStream = await Xamarin.Essentials.FileSystem.OpenAppPackageFileAsync("drugstore-data.txt");
+           
+           var dataStream = await Xamarin.Essentials.FileSystem.OpenAppPackageFileAsync("drugstore-data.txt");
             using (var streamReader = new StreamReader(dataStream, Encoding.UTF8))
             {
-                drugStoreData = streamReader.ReadToEnd();
+                drugStoreData = streamReader.ReadToEnd();              
             }
 
-            try
-            {
-                var drugStores = JsonConvert.DeserializeObject<List<Models.DrugStore>>(drugStoreData);
-                System.Diagnostics.Debug.WriteLine(drugStores);
+            var result = CheckDrugStoreDataNeedUpdate(ref drugStoreData);
 
-                //foreach (var item in drugStores)
-                //{
-                //    DrugStoresDbConnection.Insert(item);
-                //}
-            }
-            catch (Exception ex)
+            if (result.Item1)
             {
-                System.Diagnostics.Debug.WriteLine($"DBService Exception: {ex.Message}");
+                try
+                {
+                    DrugStoresDbConnection.DropTable<Models.DrugStore>();
 
+                    DrugStoresDbConnection.CreateTable<Models.DrugStore>();
+
+                    var drugStores = JsonConvert.DeserializeObject<List<Models.DrugStore>>(drugStoreData);
+                    System.Diagnostics.Debug.WriteLine(drugStores);
+
+                    DrugStoresDbConnection.InsertAll(drugStores, true);
+
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"DBService Exception: {ex.Message}");
+                }
+                finally 
+                {
+                    Xamarin.Essentials.Preferences.Set("DrugStore_Data_Ver", result.Item2);
+                }
             }
         }
 
-        public bool TableExists(string tableName)
+        private Tuple<bool,string> CheckDrugStoreDataNeedUpdate(ref string drugStoreData)
         {
-            bool sw = false;
-            try
-            {
-
-                    string query = string.Format("SELECT name FROM sqlite_master WHERE type='table' AND name='{0}';", tableName);
-                    SQLiteCommand cmd = DrugStoresDbConnection.CreateCommand(query);
-                    var item = DrugStoresDbConnection.Query<object>(query);
-                    if (item.Count > 0)
-                        sw = true;
-                    return sw;
-                
-            }
-            catch (SQLiteException ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"DBService Exception:{ex.Message}");
-                return false;
-            }
-           
+            var newVerStr = drugStoreData.Substring(0, 10);
+            var newVerNumber = long.Parse(newVerStr);
+            drugStoreData = drugStoreData.Remove(0,10);
+            var oldVerNumber = long.Parse(Xamarin.Essentials.Preferences.Get("DrugStore_Data_Ver", "2020020500"));
+            var result = newVerNumber > oldVerNumber;
+            return new Tuple<bool,string>(result , newVerStr); 
         }
+
+        //public bool TableExists(string tableName)
+        //{
+        //    bool sw = false;
+        //    try
+        //    {
+
+        //            string query = string.Format("SELECT name FROM sqlite_master WHERE type='table' AND name='{0}';", tableName);
+        //            SQLiteCommand cmd = DrugStoresDbConnection.CreateCommand(query);
+        //            var item = DrugStoresDbConnection.Query<object>(query);
+        //            if (item.Count > 0)
+        //                sw = true;
+        //            return sw;
+                
+        //    }
+        //    catch (SQLiteException ex)
+        //    {
+        //        System.Diagnostics.Debug.WriteLine($"DBService Exception:{ex.Message}");
+        //        return false;
+        //    }
+           
+        //}
     }
 }

@@ -163,6 +163,6 @@
     <BundleResource Include="Resources\drugstore%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\drugstore-data.txt" />
+    <AndroidAsset Include="Resources\drugstore-data.txt" />
   </ItemGroup>
 </Project>
