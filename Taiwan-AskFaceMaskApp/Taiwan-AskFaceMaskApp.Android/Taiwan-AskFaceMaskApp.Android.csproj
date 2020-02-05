@@ -111,5 +111,8 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\drugstore-data.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\facemaskrealname.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
