@@ -9,11 +9,11 @@
     mc:Ignorable="d">
     <Shell.FlyoutHeader>
         <StackLayout BackgroundColor="#EFEFEF" HeightRequest="420">
-            <Image Aspect="AspectFill" Source="facemaskrealname.jpg" />
+            <Image Aspect="AspectFit" Source="facemaskrealname.jpg" />
         </StackLayout>
     </Shell.FlyoutHeader>
-    <FlyoutItem Title="搜尋藥局" Icon="drugstore.png" Route="drugstore">
-        <Tab Title="找藥局" Icon="drugstore.png" Route="DrugStores">
+    <FlyoutItem Title="搜尋藥局" Icon="drugstore.png" Route="DrugStore">
+        <Tab Title="找藥局" Icon="drugstore.png" Route="SearchDrugStore">
             <ShellContent>
                 <pages:DrugStoresPage Title="找藥局" />
             </ShellContent>
