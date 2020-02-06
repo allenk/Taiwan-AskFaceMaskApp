@@ -5,3 +5,5 @@
 /.vs
 *.user
 /Taiwan-AskFaceMaskApp/Taiwan-AskFaceMaskApp/obj
+/Taiwan-AskFaceMaskApp/Taiwan-AskFaceMaskApp.Android/obj
+/Taiwan-AskFaceMaskApp/Taiwan-AskFaceMaskApp.iOS/obj/iPhoneSimulator
