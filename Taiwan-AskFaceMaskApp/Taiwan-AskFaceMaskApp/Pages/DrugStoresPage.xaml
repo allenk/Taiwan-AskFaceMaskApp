@@ -11,8 +11,61 @@
         <viewmodels:DrugStoresPageViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <CollectionView ItemSizingStrategy="MeasureAllItems" ItemsSource="{Binding DrugStores}" />
-        </StackLayout>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Entry x:Name="keywordEntry" Grid.Row="0" Placeholder="請輸入藥局名稱..." VerticalTextAlignment="Center" />
+            <ListView
+                Grid.Row="1"
+                Margin="0,0,0,4"
+                CachingStrategy="RecycleElement"
+                HasUnevenRows="True"
+                ItemsSource="{Binding DrugStores}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Margin="6,4" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Text="{Binding DrugStoreId}" VerticalTextAlignment="Center" />
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" VerticalTextAlignment="Center" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    LineBreakMode="TailTruncation"
+                                    Text="{Binding Address}"
+                                    VerticalTextAlignment="Center" />
+                                <Button
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="2"
+                                    Command="{Binding CallPhoneToDrugStoreCommand}"
+                                    CommandParameter="{Binding Tel}"
+                                    Text="撥電話"
+                                    VerticalOptions="CenterAndExpand" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button
+                Grid.Row="2"
+                BackgroundColor="#06AF8F"
+                Command="{Binding SearchCommand}"
+                CommandParameter="{Binding Text, Source={x:Reference keywordEntry}}"
+                Text="搜尋"
+                TextColor="White" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

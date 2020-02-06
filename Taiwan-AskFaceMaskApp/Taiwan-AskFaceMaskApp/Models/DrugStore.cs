@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using SQLite;
 using Newtonsoft.Json;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace Taiwan_AskFaceMaskApp.Models
 {
@@ -18,9 +20,17 @@ namespace Taiwan_AskFaceMaskApp.Models
         public float Lat { get; set; }
         public float Lng { get; set; }
         public string Area { get; set; }
+
+        [Ignore]
+        public ICommand CallPhoneToDrugStoreCommand
+        {
+            get
+            {
+                return new Command<string>((tel) =>
+                {
+                    Xamarin.Essentials.PhoneDialer.Open(tel);
+                });
+            }
+        }
     }
-
-
-
-
 }
