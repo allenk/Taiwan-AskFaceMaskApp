@@ -19,4 +19,8 @@ namespace Taiwan_AskFaceMaskApp.Models
         public float Lng { get; set; }
         public string Area { get; set; }
     }
+
+
+
+
 }

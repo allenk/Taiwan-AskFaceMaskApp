@@ -40,29 +40,25 @@ namespace Taiwan_AskFaceMaskApp.Services
         private string rootFolder { get { return Xamarin.Essentials.FileSystem.AppDataDirectory; } }
         public DbService()
         {
-            
-            
-            //if(!TableExists("DrugStore"))
             BuildDrugStoreBaseData();
-
         }
 
         private async void BuildDrugStoreBaseData()
         {
             var drugStoreData = string.Empty;
-           
-           var dataStream = await Xamarin.Essentials.FileSystem.OpenAppPackageFileAsync("drugstore-data.txt");
+            var dataStream = await Xamarin.Essentials.FileSystem.OpenAppPackageFileAsync("drugstore-data.txt");
             using (var streamReader = new StreamReader(dataStream, Encoding.UTF8))
             {
-                drugStoreData = streamReader.ReadToEnd();              
+                drugStoreData = streamReader.ReadToEnd();
             }
 
-            var result = CheckDrugStoreDataNeedUpdate(ref drugStoreData);
+            var result = CheckDrugStoreIsNeedUpdate(ref drugStoreData);
 
             if (result.Item1)
             {
                 try
                 {
+                    //有更新時重置 DB 的 Table 所有資訊。
                     DrugStoresDbConnection.DropTable<Models.DrugStore>();
 
                     DrugStoresDbConnection.CreateTable<Models.DrugStore>();
@@ -71,49 +67,27 @@ namespace Taiwan_AskFaceMaskApp.Services
                     System.Diagnostics.Debug.WriteLine(drugStores);
 
                     DrugStoresDbConnection.InsertAll(drugStores, true);
-
                 }
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine($"DBService Exception: {ex.Message}");
+
                 }
-                finally 
+                finally
                 {
-                    Xamarin.Essentials.Preferences.Set("DrugStore_Data_Ver", result.Item2);
+                    Xamarin.Essentials.Preferences.Set("DrugStore_Data_Var", result.Item2);
                 }
             }
         }
 
-        private Tuple<bool,string> CheckDrugStoreDataNeedUpdate(ref string drugStoreData)
+        private Tuple<bool,string> CheckDrugStoreIsNeedUpdate(ref string drugStoreData)
         {
             var newVerStr = drugStoreData.Substring(0, 10);
             var newVerNumber = long.Parse(newVerStr);
-            drugStoreData = drugStoreData.Remove(0,10);
-            var oldVerNumber = long.Parse(Xamarin.Essentials.Preferences.Get("DrugStore_Data_Ver", "2020020500"));
+            drugStoreData = drugStoreData.Remove(0, 10);
+            var oldVerNumber = long.Parse(Xamarin.Essentials.Preferences.Get("DrugStore_Data_Var", "2020020500"));
             var result = newVerNumber > oldVerNumber;
-            return new Tuple<bool,string>(result , newVerStr); 
+            return new Tuple<bool, string>(result, newVerStr);
         }
-
-        //public bool TableExists(string tableName)
-        //{
-        //    bool sw = false;
-        //    try
-        //    {
-
-        //            string query = string.Format("SELECT name FROM sqlite_master WHERE type='table' AND name='{0}';", tableName);
-        //            SQLiteCommand cmd = DrugStoresDbConnection.CreateCommand(query);
-        //            var item = DrugStoresDbConnection.Query<object>(query);
-        //            if (item.Count > 0)
-        //                sw = true;
-        //            return sw;
-                
-        //    }
-        //    catch (SQLiteException ex)
-        //    {
-        //        System.Diagnostics.Debug.WriteLine($"DBService Exception:{ex.Message}");
-        //        return false;
-        //    }
-           
-        //}
     }
 }
