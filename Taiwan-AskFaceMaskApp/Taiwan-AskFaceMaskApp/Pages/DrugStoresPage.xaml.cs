@@ -19,16 +19,20 @@ namespace Taiwan_AskFaceMaskApp.Pages
 
         private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            var drugStore = ((sender as ListView).SelectedItem) as Models.DrugStore;
-            var drugStoreId = drugStore.DrugStoreId;
-            var realFaceMaskData = DbService.Instance.GetRealFaceMaskData(drugStoreId);
-            var navigationToDrugStore = await DisplayAlert("資料結果:", $"{drugStore.Name}\r\n\r\n成人口罩剩餘數量: {realFaceMaskData.AdultCount}\r\n兒童口罩剩餘數量: {realFaceMaskData.ChildCount}\r\n\r\n資料更新時間: {realFaceMaskData.DataSourceTime}", "導航至此藥局", "好, 知道了");
-            if(navigationToDrugStore)
+            var selectedDrugStore = (sender as ListView).SelectedItem as Models.DrugStore;
+            var faceMaskInDrugStore = DbService.Instance.GetFaceMaskData(selectedDrugStore.DrugStoreId);
+            var needNavigation = await DisplayAlert("資料結果", $"{selectedDrugStore.Name}\r\n\r\n成人口罩總剩餘數: { faceMaskInDrugStore.AdultCount}\r\n兒童口罩剩餘數: {faceMaskInDrugStore.ChildCount}\r\n\r\n來源資料時間: {faceMaskInDrugStore.DataSourceTime}", "導航至藥局", "好，知道了!");
+
+            if (needNavigation)
             {
-                var mapLaunchOptions = new Xamarin.Essentials.MapLaunchOptions() { Name = drugStore.Name, NavigationMode = Xamarin.Essentials.NavigationMode.Driving };
-                await Xamarin.Essentials.Map.OpenAsync(new Xamarin.Essentials.Location(drugStore.Lat, drugStore.Lng), mapLaunchOptions);
+                var mapLaunchOption = new Xamarin.Essentials.MapLaunchOptions()
+                {
+                    Name = selectedDrugStore.Name,
+                    NavigationMode = Xamarin.Essentials.NavigationMode.Driving
+                };
+                await Xamarin.Essentials.Map.OpenAsync(selectedDrugStore.Lat, selectedDrugStore.Lng, mapLaunchOption);
             }
-            
+
             (sender as ListView).SelectedItem = null;
         }
     }

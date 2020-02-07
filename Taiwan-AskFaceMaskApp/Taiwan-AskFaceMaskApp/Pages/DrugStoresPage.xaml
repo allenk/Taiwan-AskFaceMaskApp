@@ -20,7 +20,6 @@
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-
             <Entry x:Name="keywordEntry" Placeholder="請輸入藥局名稱..." />
             <ListView
                 Grid.Row="1"

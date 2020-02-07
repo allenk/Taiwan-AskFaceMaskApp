@@ -26,7 +26,7 @@ namespace Taiwan_AskFaceMaskApp.Services
         }
 
         private SQLiteConnection _drugStoresDbConnection;
-        public SQLiteConnection DrugStoresDbConnection
+        private SQLiteConnection DrugStoresDbConnection
         {
             get
             {
@@ -38,6 +38,30 @@ namespace Taiwan_AskFaceMaskApp.Services
                 return _drugStoresDbConnection;
 
             }
+        }
+
+        internal Models.FaceMaskInDrugStore GetFaceMaskData(string drugStoreId)
+        {
+            var faceMaskInDrugStore = new Models.FaceMaskInDrugStore();
+
+            try
+            {
+                faceMaskInDrugStore = DrugStoresDbConnection.Get<Models.FaceMaskInDrugStore>(drugStoreId);
+            }
+            catch (InvalidOperationException invalidOperationEx)
+            {
+                System.Diagnostics.Debug.WriteLine(invalidOperationEx.Message);
+                faceMaskInDrugStore.DrugStoreId = drugStoreId;
+                faceMaskInDrugStore.AdultCount = "無資料";
+                faceMaskInDrugStore.ChildCount = "無資料";
+                faceMaskInDrugStore.DateSourceTime = "無資料";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+
+            return faceMaskInDrugStore;
         }
 
         internal ObservableCollection<Models.DrugStore> GetDrugStoreData(string query = "")
@@ -59,53 +83,33 @@ namespace Taiwan_AskFaceMaskApp.Services
         public DbService()
         {
             BuildDrugStoreBaseData();
-            BuildRealFaceMaskInDrugStoreData();
+            BuildFaceMaskInDrugStoreData();
         }
 
-        public Models.FaceMaskInDrugStore GetRealFaceMaskData(string DrugStoreId)
+        private async void BuildFaceMaskInDrugStoreData()
         {
-            Models.FaceMaskInDrugStore result = new Models.FaceMaskInDrugStore();
-            try
-            {
-                result = DrugStoresDbConnection.Get<Models.FaceMaskInDrugStore>(DrugStoreId);
-            }
-            catch (InvalidOperationException invalidOperationEx)
-            {
-                System.Diagnostics.Debug.WriteLine($"DBService InvalidOperationException: {invalidOperationEx.Message}");
-                result.DrugStoreId = DrugStoreId;
-                result.AdultCount = "無資料";
-                result.ChildCount = "無資料";
-                result.DataSourceTime = "無資料";
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"DBService Exception: {ex.Message}");
-            }
-            return result;
-        }
-
-        private async void BuildRealFaceMaskInDrugStoreData()
-        {
-            bool result = ChecFaceMaskDataIsNeedUpdate();
-
+            var result = CheckFaceMaskInDrugStoreDataIsNeedUpdate();
             if (result)
             {
-                await UpdateRealFaceMaskInDrugStoreData();
+                await UpdateFaceMaskInDrugStoreData();
             }
         }
 
-        public async Task UpdateRealFaceMaskInDrugStoreData()
+        public async Task UpdateFaceMaskInDrugStoreData()
         {
-            var realFaceMaskData = await OpenDataService.Instance.GetFaceMaskData();
+            //call api
+            var faceMaskData = await OpenDataService.Instance.GetFaceMaskData();
 
             try
             {
-                //資料更新時重置 DB 的該 Table 所有資訊。
+                //有資料更新時重置 DB 的該 Table 所有資訊。
                 DrugStoresDbConnection.DropTable<Models.FaceMaskInDrugStore>();
 
                 DrugStoresDbConnection.CreateTable<Models.FaceMaskInDrugStore>();
 
-                DrugStoresDbConnection.InsertAll(realFaceMaskData, true);
+                System.Diagnostics.Debug.WriteLine(faceMaskData?.Count);
+
+                DrugStoresDbConnection.InsertAll(faceMaskData, true);
             }
             catch (Exception ex)
             {
@@ -113,21 +117,19 @@ namespace Taiwan_AskFaceMaskApp.Services
             }
             finally
             {
-                Xamarin.Essentials.Preferences.Set("RealFaceMaskDataUpdateDateTime", DateTime.Now);
+                Xamarin.Essentials.Preferences.Set("FaceMaskDataUpdateDateTime", DateTime.Now);
             }
         }
 
-        private bool ChecFaceMaskDataIsNeedUpdate()
+        private bool CheckFaceMaskInDrugStoreDataIsNeedUpdate()
         {
-            if (!Xamarin.Essentials.Preferences.ContainsKey("RealFaceMaskDataUpdateDateTime"))
-            {
+            if (!Xamarin.Essentials.Preferences.ContainsKey("FaceMaskDataUpdateDateTime"))
                 return true;
-            }
-            else
-            {
-                var oldDateTime = Xamarin.Essentials.Preferences.Get("RealFaceMaskDataUpdateDateTime", DateTime.Now);
-                return oldDateTime.AddSeconds(90) < DateTime.Now;
-            }
+
+            var oldUpdateDateTime = Xamarin.Essentials.Preferences.Get("FaceMaskDataUpdateDateTime", DateTime.Now);
+            
+            //NHI 公告資料每 90 秒更新一次。
+            return oldUpdateDateTime.AddSeconds(90) < DateTime.Now;
         }
 
         private async void BuildDrugStoreBaseData()
