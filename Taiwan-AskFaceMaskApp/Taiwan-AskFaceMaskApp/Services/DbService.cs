@@ -54,7 +54,7 @@ namespace Taiwan_AskFaceMaskApp.Services
                 faceMaskInDrugStore.DrugStoreId = drugStoreId;
                 faceMaskInDrugStore.AdultCount = "無資料";
                 faceMaskInDrugStore.ChildCount = "無資料";
-                faceMaskInDrugStore.DateSourceTime = "無資料";
+                faceMaskInDrugStore.DataSourceTime = "無資料";
             }
             catch (Exception ex)
             {
