@@ -12,15 +12,15 @@
             <Image Aspect="AspectFit" Source="facemaskrealname.jpg" />
         </StackLayout>
     </Shell.FlyoutHeader>
-    <FlyoutItem Title="搜尋藥局" Icon="drugstore.png" Route="drugstore">
-        <Tab Title="地圖搜尋" Icon="search.png">
+    <FlyoutItem Title="搜尋藥局" Icon="drugstore.png" Route="DrugStore">
+        <Tab Title="找藥局" Icon="drugstore.png" Route="SearchDrugStore">
             <ShellContent>
-                <pages:MainPage Title="地圖搜尋" />
+                <pages:DrugStoresPage Title="找藥局" />
             </ShellContent>
         </Tab>
-        <Tab Title="藥局列表" Icon="drugstore.png">
+        <Tab Title="地圖搜尋" Icon="search.png" Route="MapsSearch">
             <ShellContent>
-                <pages:DrugStoresPage Title="藥局列表" />
+                <pages:MainPage Title="地圖搜尋" />
             </ShellContent>
         </Tab>
     </FlyoutItem>
