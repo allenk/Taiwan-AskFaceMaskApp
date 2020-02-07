@@ -5,6 +5,7 @@ using System.Text;
 using SQLite;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Taiwan_AskFaceMaskApp.Services
 {
@@ -58,6 +59,75 @@ namespace Taiwan_AskFaceMaskApp.Services
         public DbService()
         {
             BuildDrugStoreBaseData();
+            BuildRealFaceMaskInDrugStoreData();
+        }
+
+        public Models.FaceMaskInDrugStore GetRealFaceMaskData(string DrugStoreId)
+        {
+            Models.FaceMaskInDrugStore result = new Models.FaceMaskInDrugStore();
+            try
+            {
+                result = DrugStoresDbConnection.Get<Models.FaceMaskInDrugStore>(DrugStoreId);
+            }
+            catch (InvalidOperationException invalidOperationEx)
+            {
+                System.Diagnostics.Debug.WriteLine($"DBService InvalidOperationException: {invalidOperationEx.Message}");
+                result.DrugStoreId = DrugStoreId;
+                result.AdultCount = "無資料";
+                result.ChildCount = "無資料";
+                result.DataSourceTime = "無資料";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"DBService Exception: {ex.Message}");
+            }
+            return result;
+        }
+
+        private async void BuildRealFaceMaskInDrugStoreData()
+        {
+            bool result = ChecFaceMaskDataIsNeedUpdate();
+
+            if (result)
+            {
+                await UpdateRealFaceMaskInDrugStoreData();
+            }
+        }
+
+        public async Task UpdateRealFaceMaskInDrugStoreData()
+        {
+            var realFaceMaskData = await OpenDataService.Instance.GetFaceMaskData();
+
+            try
+            {
+                //資料更新時重置 DB 的該 Table 所有資訊。
+                DrugStoresDbConnection.DropTable<Models.FaceMaskInDrugStore>();
+
+                DrugStoresDbConnection.CreateTable<Models.FaceMaskInDrugStore>();
+
+                DrugStoresDbConnection.InsertAll(realFaceMaskData, true);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"DBService Exception: {ex.Message}");
+            }
+            finally
+            {
+                Xamarin.Essentials.Preferences.Set("RealFaceMaskDataUpdateDateTime", DateTime.Now);
+            }
+        }
+
+        private bool ChecFaceMaskDataIsNeedUpdate()
+        {
+            if (!Xamarin.Essentials.Preferences.ContainsKey("RealFaceMaskDataUpdateDateTime"))
+            {
+                return true;
+            }
+            else
+            {
+                var oldDateTime = Xamarin.Essentials.Preferences.Get("RealFaceMaskDataUpdateDateTime", DateTime.Now);
+                return oldDateTime.AddSeconds(90) < DateTime.Now;
+            }
         }
 
         private async void BuildDrugStoreBaseData()
@@ -75,7 +145,7 @@ namespace Taiwan_AskFaceMaskApp.Services
             {
                 try
                 {
-                    //有資料更新時重置 DB 的 Table 所有資訊。
+                    //有資料更新時重置 DB 的該 Table 所有資訊。
                     DrugStoresDbConnection.DropTable<Models.DrugStore>();
 
                     DrugStoresDbConnection.CreateTable<Models.DrugStore>();

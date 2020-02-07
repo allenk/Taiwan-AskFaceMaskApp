@@ -23,6 +23,7 @@
                 Margin="0,0,0,4"
                 CachingStrategy="RecycleElement"
                 HasUnevenRows="True"
+                ItemTapped="ListView_ItemTapped"
                 ItemsSource="{Binding DrugStores}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
