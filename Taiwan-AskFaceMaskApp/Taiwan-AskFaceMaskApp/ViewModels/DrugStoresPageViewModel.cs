@@ -9,13 +9,20 @@ using Xamarin.Forms;
 
 namespace Taiwan_AskFaceMaskApp.ViewModels
 {
-    public class DrugStoresPageViewModel : BaseNotifyProperty
-    {
+	public class DrugStoresPageViewModel : BaseNotifyProperty
+	{
 		private ObservableCollection<Models.DrugStore> _drugStores;
 		public ObservableCollection<Models.DrugStore> DrugStores
 		{
 			get { return _drugStores; }
 			set => OnPropertyChanged(ref _drugStores, value);
+		}
+
+		private bool _isRunning;
+		public bool IsRunning
+		{
+			get { return _isRunning;}
+			set => OnPropertyChanged(ref _isRunning, value);
 		}
 
 		public DrugStoresPageViewModel()
@@ -34,5 +41,18 @@ namespace Taiwan_AskFaceMaskApp.ViewModels
 				});
 			}
 		}
+		public ICommand ToolbarItemCommand
+		{
+			get
+			{
+				return new Command(async() =>
+				{
+					IsRunning = true;
+					await DbService.Instance.UpdateRealFaceMaskInDrugStoreData();
+					IsRunning = false;
+				});
+			}
+		}
+		
 	}
 }

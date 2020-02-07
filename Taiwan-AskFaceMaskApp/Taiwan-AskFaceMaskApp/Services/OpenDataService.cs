@@ -40,7 +40,7 @@ namespace Taiwan_AskFaceMaskApp.Services
 
         public async Task<ObservableCollection<Models.FaceMaskInDrugStore>> GetFaceMaskData()
         {
-           var result = await HttpClient.GetStringAsync(nhiOpenDataUrl);
+            var result = await HttpClient.GetStringAsync(nhiOpenDataUrl).ConfigureAwait(false) ;
 
 			var data = ConvertDataHelper.CsvToJson<Models.FaceMaskInDrugStore>(result);
 

@@ -10,6 +10,9 @@
     <ContentPage.BindingContext>
         <viewmodels:DrugStoresPageViewModel />
     </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding ToolbarItemCommand}" Text="更新口罩資料" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
@@ -17,6 +20,7 @@
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+
             <Entry x:Name="keywordEntry" Placeholder="請輸入藥局名稱..." />
             <ListView
                 Grid.Row="1"
@@ -68,6 +72,16 @@
                 CommandParameter="{Binding Text, Source={x:Reference keywordEntry}}"
                 Text="搜尋"
                 TextColor="White" />
+            <StackLayout
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                BackgroundColor="White"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding IsRunning}"
+                Opacity="0.9"
+                VerticalOptions="FillAndExpand">
+                <ActivityIndicator HorizontalOptions="CenterAndExpand" IsRunning="{Binding IsRunning}" VerticalOptions="CenterAndExpand" Color="Orange" />
+            </StackLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
