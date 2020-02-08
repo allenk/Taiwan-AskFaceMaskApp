@@ -5,11 +5,22 @@
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <RootNamespace>Taiwan_AskFaceMaskApp</RootNamespace>
     <AssemblyName>Taiwan_AskFaceMaskApp</AssemblyName>
+    <Configurations>Debug;Release;Store</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>DISABLE_XAMARINFORMSLIVE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Store|AnyCPU'">
+    <DefineConstants>DISABLE_XAMARINFORMSLIVE</DefineConstants>
+    <Optimize>true</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
