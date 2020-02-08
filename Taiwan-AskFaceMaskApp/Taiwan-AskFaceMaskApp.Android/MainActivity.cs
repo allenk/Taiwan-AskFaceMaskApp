@@ -6,13 +6,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using System.Collections.Concurrent;
 
+using System.Collections.Concurrent;
 using Xamarin.Forms.GoogleMaps.Android;
-using Xamarin.Forms.GoogleMaps;
 using AndroidBitmapDescriptor = Android.Gms.Maps.Model.BitmapDescriptor;
 using Xamarin.Forms.GoogleMaps.Android.Factories;
-
 
 namespace Taiwan_AskFaceMaskApp.Droid
 {
@@ -29,12 +27,14 @@ namespace Taiwan_AskFaceMaskApp.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
+
+            // Override default BitmapDescriptorFactory by your implementation. 
             var platformConfig = new PlatformConfig
             {
                 BitmapDescriptorFactory = new CachingNativeBitmapDescriptorFactory()
             };
 
-            Xamarin.FormsGoogleMaps.Init(this, savedInstanceState, platformConfig);
+            Xamarin.FormsGoogleMaps.Init(this, savedInstanceState, platformConfig); // initialize for Xamarin.Forms.GoogleMaps
 
             LoadApplication(new App());
         }
@@ -51,7 +51,7 @@ namespace Taiwan_AskFaceMaskApp.Droid
         private readonly ConcurrentDictionary<string, AndroidBitmapDescriptor> _cache
             = new ConcurrentDictionary<string, AndroidBitmapDescriptor>();
 
-        public AndroidBitmapDescriptor ToNative(BitmapDescriptor descriptor)
+        public AndroidBitmapDescriptor ToNative(Xamarin.Forms.GoogleMaps.BitmapDescriptor descriptor)
         {
             var defaultFactory = DefaultBitmapDescriptorFactory.Instance;
 
@@ -63,6 +63,5 @@ namespace Taiwan_AskFaceMaskApp.Droid
 
             return defaultFactory.ToNative(descriptor);
         }
-
     }
 }

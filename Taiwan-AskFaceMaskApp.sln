@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taiwan-AskFaceMaskApp.Andro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taiwan-AskFaceMaskApp.iOS", "Taiwan-AskFaceMaskApp\Taiwan-AskFaceMaskApp.iOS\Taiwan-AskFaceMaskApp.iOS.csproj", "{3920D8F3-6576-4961-B73D-7D409C592F97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taiwan-AskFaceMaskApp", "Taiwan-AskFaceMaskApp\Taiwan-AskFaceMaskApp\Taiwan-AskFaceMaskApp.csproj", "{7E78D464-DE33-4F9C-B77F-DD20773DD11A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taiwan-AskFaceMaskApp", "Taiwan-AskFaceMaskApp\Taiwan-AskFaceMaskApp\Taiwan-AskFaceMaskApp.csproj", "{7E78D464-DE33-4F9C-B77F-DD20773DD11A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +17,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|iPhone = Release|iPhone
 		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Store|Any CPU = Store|Any CPU
+		Store|iPhone = Store|iPhone
+		Store|iPhoneSimulator = Store|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CBDEB124-E7C4-41E1-AD1D-36020C92B826}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -37,6 +40,15 @@ Global
 		{CBDEB124-E7C4-41E1-AD1D-36020C92B826}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{CBDEB124-E7C4-41E1-AD1D-36020C92B826}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{CBDEB124-E7C4-41E1-AD1D-36020C92B826}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{CBDEB124-E7C4-41E1-AD1D-36020C92B826}.Store|Any CPU.ActiveCfg = Store|Any CPU
+		{CBDEB124-E7C4-41E1-AD1D-36020C92B826}.Store|Any CPU.Build.0 = Store|Any CPU
+		{CBDEB124-E7C4-41E1-AD1D-36020C92B826}.Store|Any CPU.Deploy.0 = Store|Any CPU
+		{CBDEB124-E7C4-41E1-AD1D-36020C92B826}.Store|iPhone.ActiveCfg = Store|Any CPU
+		{CBDEB124-E7C4-41E1-AD1D-36020C92B826}.Store|iPhone.Build.0 = Store|Any CPU
+		{CBDEB124-E7C4-41E1-AD1D-36020C92B826}.Store|iPhone.Deploy.0 = Store|Any CPU
+		{CBDEB124-E7C4-41E1-AD1D-36020C92B826}.Store|iPhoneSimulator.ActiveCfg = Store|Any CPU
+		{CBDEB124-E7C4-41E1-AD1D-36020C92B826}.Store|iPhoneSimulator.Build.0 = Store|Any CPU
+		{CBDEB124-E7C4-41E1-AD1D-36020C92B826}.Store|iPhoneSimulator.Deploy.0 = Store|Any CPU
 		{3920D8F3-6576-4961-B73D-7D409C592F97}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
 		{3920D8F3-6576-4961-B73D-7D409C592F97}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
 		{3920D8F3-6576-4961-B73D-7D409C592F97}.Debug|Any CPU.Deploy.0 = Debug|iPhoneSimulator
@@ -55,6 +67,12 @@ Global
 		{3920D8F3-6576-4961-B73D-7D409C592F97}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{3920D8F3-6576-4961-B73D-7D409C592F97}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{3920D8F3-6576-4961-B73D-7D409C592F97}.Release|iPhoneSimulator.Deploy.0 = Release|iPhoneSimulator
+		{3920D8F3-6576-4961-B73D-7D409C592F97}.Store|Any CPU.ActiveCfg = Store|iPhone
+		{3920D8F3-6576-4961-B73D-7D409C592F97}.Store|Any CPU.Build.0 = Store|iPhone
+		{3920D8F3-6576-4961-B73D-7D409C592F97}.Store|iPhone.ActiveCfg = Store|iPhone
+		{3920D8F3-6576-4961-B73D-7D409C592F97}.Store|iPhone.Build.0 = Store|iPhone
+		{3920D8F3-6576-4961-B73D-7D409C592F97}.Store|iPhoneSimulator.ActiveCfg = Store|iPhoneSimulator
+		{3920D8F3-6576-4961-B73D-7D409C592F97}.Store|iPhoneSimulator.Build.0 = Store|iPhoneSimulator
 		{7E78D464-DE33-4F9C-B77F-DD20773DD11A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7E78D464-DE33-4F9C-B77F-DD20773DD11A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E78D464-DE33-4F9C-B77F-DD20773DD11A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
@@ -73,6 +91,12 @@ Global
 		{7E78D464-DE33-4F9C-B77F-DD20773DD11A}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{7E78D464-DE33-4F9C-B77F-DD20773DD11A}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{7E78D464-DE33-4F9C-B77F-DD20773DD11A}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{7E78D464-DE33-4F9C-B77F-DD20773DD11A}.Store|Any CPU.ActiveCfg = Store|Any CPU
+		{7E78D464-DE33-4F9C-B77F-DD20773DD11A}.Store|Any CPU.Build.0 = Store|Any CPU
+		{7E78D464-DE33-4F9C-B77F-DD20773DD11A}.Store|iPhone.ActiveCfg = Store|Any CPU
+		{7E78D464-DE33-4F9C-B77F-DD20773DD11A}.Store|iPhone.Build.0 = Store|Any CPU
+		{7E78D464-DE33-4F9C-B77F-DD20773DD11A}.Store|iPhoneSimulator.ActiveCfg = Store|Any CPU
+		{7E78D464-DE33-4F9C-B77F-DD20773DD11A}.Store|iPhoneSimulator.Build.0 = Store|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
