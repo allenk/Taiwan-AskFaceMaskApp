@@ -8,5 +8,5 @@
 	<uses-feature android:name="android.hardware.location" android:required="true" />
   <meta-data
         android:name="MapKey"
-        android:value="<Your GoogleMap API Key>" />
+        android:value="<Your_GoogleMap_API_Key>" />
 </manifest>

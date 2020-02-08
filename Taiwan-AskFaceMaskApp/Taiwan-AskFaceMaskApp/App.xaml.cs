@@ -18,7 +18,7 @@ namespace Taiwan_AskFaceMaskApp
 
         protected override void OnStart()
         {
-            AppCenter.Start("ios={Your AppCenter Secret for iOS};android={Your AppCenter Secret for Android}",typeof(Analytics), typeof(Crashes));
+			AppCenter.Start("ios={Your AppCenter Secret for iOS};android={Your AppCenter Secret for Android}",typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnSleep()
