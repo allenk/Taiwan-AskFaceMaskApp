@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
@@ -14,10 +15,11 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
+        <maps:Map HorizontalOptions="FillAndExpand" InitialCameraUpdate="25.034645, 121.540178, 14.7, 0, 0" IsEnabled="False" VerticalOptions="FillAndExpand" />
         <Label
             HorizontalOptions="CenterAndExpand"
             HorizontalTextAlignment="Center"
-            Text="...測試中，尚未開放..."
+            Text="尚未正式開放使用"
             TextColor="#06AF8F"
             VerticalOptions="CenterAndExpand"
             VerticalTextAlignment="Center" />

@@ -24,8 +24,10 @@ namespace Taiwan_AskFaceMaskApp.iOS
         {
 
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
 
+            Xamarin.FormsGoogleMaps.Init("Your_GoogleMap_API_Key");
+
+            LoadApplication(new App());
             return base.FinishedLaunching(app, options);
         }
     }

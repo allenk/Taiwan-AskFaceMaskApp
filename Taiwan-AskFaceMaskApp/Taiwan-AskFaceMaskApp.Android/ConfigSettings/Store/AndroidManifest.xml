@@ -1,12 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="tw.goodjob.taiwan_askfacemaskapp" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="tw.goodjob.askfacemaskapp" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29" />
-	<application android:label="問口罩"></application>
+	<application android:label="問口罩">
+		<uses-library android:name="org.apache.http.legacy" android:required="false" />
+		<meta-data
+			android:name="MapKey"
+			android:value="<Your_GoogleMap_API_Key>" />
+	</application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-feature android:name="android.hardware.telephony" android:required="true" />
 	<uses-feature android:name="android.hardware.location" android:required="true" />
-  <meta-data
-        android:name="MapKey"
-        android:value="<Your_GoogleMap_API_Key>" />
+
 </manifest>
