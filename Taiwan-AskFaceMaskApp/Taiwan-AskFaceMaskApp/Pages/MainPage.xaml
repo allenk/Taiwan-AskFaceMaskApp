@@ -11,7 +11,6 @@
     <ContentPage.BindingContext>
         <viewmodels:MainPageViewModel />
     </ContentPage.BindingContext>
-
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
@@ -21,9 +20,10 @@
         </Grid.ColumnDefinitions>
         <googlemaps:Map
             HorizontalOptions="FillAndExpand"
-            InitialCameraUpdate="{Binding CameraUpdate}"
+            InitialCameraUpdate="{Binding MapCameraUpdate}"
             IsEnabled="{Binding IsEnabled}"
             ItemsSource="{Binding Places}"
+            PinClicked="Map_PinClicked"
             VerticalOptions="FillAndExpand">
             <googlemaps:Map.ItemTemplate>
                 <DataTemplate>
@@ -32,6 +32,7 @@
                         Label="{Binding Name}"
                         Position="{Binding Location}"
                         Tag="{Binding Tel}"
+                        Clicked="Pin_Clicked"
                         Type="Place" />
                 </DataTemplate>
             </googlemaps:Map.ItemTemplate>
@@ -39,10 +40,10 @@
         <Label
             HorizontalOptions="CenterAndExpand"
             HorizontalTextAlignment="Center"
-            IsVisible="{Binding IsEnabled}"
             Text="...尚未正式開放使用..."
             TextColor="#06AF8F"
             VerticalOptions="CenterAndExpand"
             VerticalTextAlignment="Center" />
+
     </Grid>
 </ContentPage>

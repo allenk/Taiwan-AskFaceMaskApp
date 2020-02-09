@@ -1,21 +1,18 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 using Xam.Plugin.BaseBindingLibrary;
 using Xamarin.Forms.GoogleMaps;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace Taiwan_AskFaceMaskApp.ViewModels
 {
-	public class MainPageViewModel : BaseNotifyProperty
+    public class MainPageViewModel : BaseNotifyProperty
     {
-		private CameraUpdate _cameraUpdate;
-
-		public CameraUpdate CameraUpdate
-		{
-			get { return _cameraUpdate; }
-			set { OnPropertyChanged<CameraUpdate>(ref _cameraUpdate, value); }
-			
-		}
-
 		private bool _isEnabled;
 
 		public bool IsEnabled
@@ -25,43 +22,58 @@ namespace Taiwan_AskFaceMaskApp.ViewModels
 		}
 
 		private ObservableCollection<Models.Place> _places;
+
 		public ObservableCollection<Models.Place> Places
 		{
 			get { return _places; }
-			set => OnPropertyChanged(ref _places, value);
+			set { OnPropertyChanged<ObservableCollection<Models.Place>>(ref _places, value); }
 		}
+
+		private CameraUpdate _mapCameraUpdate;
+
+		public CameraUpdate MapCameraUpdate
+		{
+			get { return _mapCameraUpdate; }
+			set { OnPropertyChanged<CameraUpdate>(ref _mapCameraUpdate, value); }
+		}
+
 
 		public MainPageViewModel()
 		{
 			IsEnabled = true;
 
-			CameraUpdate = CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(25.033278, 121.540794), 14.6, 0, 0));
+			//Hack 1:
+			//搭配只顯示 衛生福利部中央健康保險署 地標
+			//MapCameraUpdate = CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(25.033308, 121.540232), 14.6, 0, 0));
 
-			//台灣地理中心位置
-			//CameraUpdate = CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(23.9739356, 120.9787068), 7.3, 0, 0));
-			
+			//台灣地理中心 : 搭配地圖顯示全台灣的藥局
+			MapCameraUpdate = CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(23.974004, 120.979703), 7.3, 0, 0));
+
 			Places = BuildPlaces();
 		}
 
 		private ObservableCollection<Models.Place> BuildPlaces()
 		{
-			var drugStores = Services.DbService.Instance.GetDrugStoreData();
+			//Hack
+			//衛生福利部中央健康保險署
+			//return new ObservableCollection<Models.Place>() 
+			//{ 
+			//	new Models.Place() { Name= "衛生福利部中央健康保險署", Address = "台北市大安區信義路三段140號" , Tel = "02-27065866" , Location = new Position(25.033308, 121.540232) } 
+			//};
 
-			return new ObservableCollection<Models.Place>()
-			{
-				new Models.Place() { Address = "台北市大安區信義路三段140號", Name = "衛生福利部 中央健康保險署" , Location = new Position(25.033779, 121.540299)},
-			};
+			var drugStorePlaces = Services.DbService.Instance.GetDrugStoreData();
 
-			//return new ObservableCollection<PinPlace>(from drugStore in drugStores
-			//										  select new PinPlace()
-			//										  {
-			//											  DrugStoreId = drugStore.DrugStoreId,
-			//											  Address = drugStore.Address,
-			//											  Name = drugStore.Name,
-			//											  Location = new Position(drugStore.Lat, drugStore.Lng),
-			//											  Tel = drugStore.Tel
-			//										  });
-
+			return new ObservableCollection<Models.Place>(
+					from drugStore in drugStorePlaces
+					select new Models.Place
+					{
+						Name = drugStore.Name,
+						Address = drugStore.Address,
+						Tel = drugStore.Tel,
+						Location = new Position(drugStore.Lat, drugStore.Lng),
+						DrugStoreId = drugStore.DrugStoreId
+					}
+				);
 		}
 	}
 }

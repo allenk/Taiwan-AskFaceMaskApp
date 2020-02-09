@@ -144,9 +144,6 @@ namespace Taiwan_AskFaceMaskApp.Droid
 			// aapt resource value: 0x7F050002
 			public const int launcher_foreground = 2131034114;
 			
-			// aapt resource value: 0x7F050003
-			public const int pin = 2131034115;
-			
 			static Mipmap()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
