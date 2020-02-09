@@ -6,7 +6,11 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:googlemaps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:Taiwan_AskFaceMaskApp.ViewModels"
     mc:Ignorable="d">
+    <ContentPage.BindingContext>
+        <viewmodels:MainPageViewModel />
+    </ContentPage.BindingContext>
 
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
@@ -15,14 +19,30 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-        <googlemaps:Map HorizontalOptions="FillAndExpand" InitialCameraUpdate="25.033779, 121.540299, 14.5, 0, 0" IsEnabled="False" VerticalOptions="FillAndExpand" />
+        <googlemaps:Map
+            HorizontalOptions="FillAndExpand"
+            InitialCameraUpdate="{Binding CameraUpdate}"
+            IsEnabled="{Binding IsEnabled}"
+            ItemsSource="{Binding Places}"
+            VerticalOptions="FillAndExpand">
+            <googlemaps:Map.ItemTemplate>
+                <DataTemplate>
+                    <googlemaps:Pin
+                        Address="{Binding Address}"
+                        Label="{Binding Name}"
+                        Position="{Binding Location}"
+                        Tag="{Binding Tel}"
+                        Type="Place" />
+                </DataTemplate>
+            </googlemaps:Map.ItemTemplate>
+        </googlemaps:Map>
         <Label
             HorizontalOptions="CenterAndExpand"
             HorizontalTextAlignment="Center"
+            IsVisible="{Binding IsEnabled}"
             Text="...尚未正式開放使用..."
             TextColor="#06AF8F"
             VerticalOptions="CenterAndExpand"
             VerticalTextAlignment="Center" />
-
     </Grid>
 </ContentPage>

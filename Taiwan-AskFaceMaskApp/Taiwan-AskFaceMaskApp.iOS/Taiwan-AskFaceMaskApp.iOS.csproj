@@ -200,4 +200,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\facemaskrealname.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\pin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\pin%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\pin%402x.png" />
+  </ItemGroup>
 </Project>
