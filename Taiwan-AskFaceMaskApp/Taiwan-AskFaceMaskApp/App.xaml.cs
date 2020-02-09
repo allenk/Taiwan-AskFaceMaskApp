@@ -18,6 +18,7 @@ namespace Taiwan_AskFaceMaskApp
 
         protected override void OnStart()
         {
+			AppCenter.LogLevel = LogLevel.Verbose;
 			AppCenter.Start("ios={Your AppCenter Secret for iOS};android={Your AppCenter Secret for Android}",typeof(Analytics), typeof(Crashes));
         }
 
