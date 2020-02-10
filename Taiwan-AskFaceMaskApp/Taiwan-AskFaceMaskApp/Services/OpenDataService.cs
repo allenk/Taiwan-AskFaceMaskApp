@@ -32,7 +32,10 @@ namespace Taiwan_AskFaceMaskApp.Services
 			{
 				if (_httpClient == null)
 				{
-					_httpClient = new HttpClient();
+					_httpClient = new HttpClient
+					{
+						Timeout = TimeSpan.FromSeconds(10)
+					};
 				}
 				return _httpClient;
 			}
@@ -40,18 +43,37 @@ namespace Taiwan_AskFaceMaskApp.Services
 
 		private readonly string nhiOpenDataUrl = "https://data.nhi.gov.tw/resource/mask/maskdata.csv";
 
-		public async Task<ObservableCollection<Models.FaceMaskInDrugStore>> GetFaceMaskData() 
+		public async Task<ObservableCollection<Models.FaceMaskInDrugStore>> GetFaceMaskData()
 		{
+			try
+			{
+				HttpClient.DefaultRequestHeaders.Accept.Clear();
 
-			var result = await HttpClient.GetStringAsync(nhiOpenDataUrl).ConfigureAwait(false);
-			var data = ConvertDataHelper.CsvToJson<Models.FaceMaskInDrugStore>(result);
-			var faceMaskInDrugStores = new ObservableCollection<Models.FaceMaskInDrugStore>(data);
+				HttpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("text/html"));
+				HttpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
+				HttpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/xml", 0.9));
+				HttpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("*/*", 0.8));
 
-			System.Diagnostics.Debug.WriteLine(faceMaskInDrugStores);
+				var result = await HttpClient.GetStringAsync(nhiOpenDataUrl).ConfigureAwait(false);
+				var data = ConvertDataHelper.CsvToJson<Models.FaceMaskInDrugStore>(result);
+				var faceMaskInDrugStores = new ObservableCollection<Models.FaceMaskInDrugStore>(data);
 
-			Xamarin.Essentials.Preferences.Set("FaceMaskDataUpdateDateTime", DateTime.Now);
+				System.Diagnostics.Debug.WriteLine(faceMaskInDrugStores);
 
-			return faceMaskInDrugStores;
+				Xamarin.Essentials.Preferences.Set("FaceMaskDataUpdateDateTime", DateTime.Now);
+
+				return faceMaskInDrugStores;
+			}
+			catch (HttpRequestException httpRequestEx)
+			{
+				System.Diagnostics.Debug.WriteLine(httpRequestEx.Message);
+				return new ObservableCollection<Models.FaceMaskInDrugStore>();
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine(ex.Message);
+				return new ObservableCollection<Models.FaceMaskInDrugStore>();
+			}
 		}
 
 	}

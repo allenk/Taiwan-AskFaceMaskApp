@@ -50,7 +50,7 @@ namespace JamestsaiTW.Utilities
 				{ "醫事機構名稱","Name" },
 				{ "醫事機構地址","Address" },
 				{ "醫事機構電話","Tel" },
-				{ "成人口罩總剩餘數","AdultCount" },
+				{ "成人口罩剩餘數","AdultCount" },
 				{ "兒童口罩剩餘數","ChildCount" },
 				{ "來源資料時間","DataSourceTime" }
 			};

@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace Taiwan_AskFaceMaskApp.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DrugStoresPage : ContentPage
+    public partial class DrugStoresPage : BasePage
     {
         public DrugStoresPage()
         {
