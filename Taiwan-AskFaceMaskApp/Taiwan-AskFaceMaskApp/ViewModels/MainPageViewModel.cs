@@ -4,15 +4,12 @@ using System.Text;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-using Xam.Plugin.BaseBindingLibrary;
 using Xamarin.Forms.GoogleMaps;
-using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace Taiwan_AskFaceMaskApp.ViewModels
 {
-    public class MainPageViewModel : BaseNotifyProperty
-    {
+    public class MainPageViewModel : BasePageViewModel
+	{
 		private bool _isEnabled;
 
 		public bool IsEnabled
