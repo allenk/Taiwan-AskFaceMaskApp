@@ -57,7 +57,7 @@ namespace Taiwan_AskFaceMaskApp.ViewModels
 						IsRunning = false;
 						return;
 					}
-					await (App.Current as App).MainPage.DisplayAlert("網路不通", "請檢查設備連線狀態...", "好");
+					await (App.Current as App).MainPage.DisplayAlert("網路連線錯誤", "請檢查裝置連線狀態...", "好");
 				});
 			}
 		}

@@ -26,5 +26,9 @@
     </FlyoutItem>
     <MenuItem Clicked="MohwNewsMenuItem_Clicked" IconImageSource="news.png" Text="查看 衛福部 最新消息" />
     <MenuItem Clicked="CallPhoneMenuItem_Clicked" IconImageSource="callphone.png" Text="撥打防疫專線 1922" />
-
+    <FlyoutItem Title="關於" Icon="pin.png" Route="About">
+        <ShellContent>
+            <pages:AboutPage Title="關於" />
+        </ShellContent>
+    </FlyoutItem>
 </Shell>
