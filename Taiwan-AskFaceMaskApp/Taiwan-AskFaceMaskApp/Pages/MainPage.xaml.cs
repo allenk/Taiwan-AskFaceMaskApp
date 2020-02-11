@@ -44,7 +44,7 @@ namespace Taiwan_AskFaceMaskApp.Pages
 
         private void Map_PinClicked(object sender, PinClickedEventArgs e)
         {
-            (sender as Map).MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(e.Pin.Position, 14.6, 0, 0)));
+            (sender as Map).MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(e.Pin.Position, 12.6, 0, 0)));
         }
     }
 }

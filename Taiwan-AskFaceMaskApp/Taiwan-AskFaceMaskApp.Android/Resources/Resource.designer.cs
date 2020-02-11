@@ -82,7 +82,10 @@ namespace Taiwan_AskFaceMaskApp.Droid
 			public const int news = 2130837507;
 			
 			// aapt resource value: 0x7F020004
-			public const int search = 2130837508;
+			public const int pin = 2130837508;
+			
+			// aapt resource value: 0x7F020005
+			public const int search = 2130837509;
 			
 			static Drawable()
 			{

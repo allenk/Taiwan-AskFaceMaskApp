@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage
+    x:Class="Taiwan_AskFaceMaskApp.Pages.AboutPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:Taiwan_AskFaceMaskApp.Pages"
+    xmlns:viewmodels="clr-namespace:Taiwan_AskFaceMaskApp.ViewModels"
+    mc:Ignorable="d">
+    <ContentPage.BindingContext>
+        <viewmodels:AboutPageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Margin="6,10">
+            <Label
+                FontSize="Large"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Start"
+                Text="資料來源:"
+                TextColor="Black"
+                VerticalTextAlignment="Center" />
+            <Label
+                FontSize="Default"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Start"
+                Text="本 App 使用之資料來源皆取自衛生福利部中央健康保險署公布之資料，詳細資訊請點選下列連結前往觀看:"
+                TextColor="Black"
+                VerticalTextAlignment="Center" />
+            <Label
+                Margin="0,10"
+                FontSize="Default"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Start"
+                Text="{Binding NhiUrl}"
+                TextColor="Blue"
+                VerticalOptions="StartAndExpand"
+                VerticalTextAlignment="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenNhiUrlCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label
+                Margin="0,6"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Center"
+                Text="在此感謝全台灣從事有關防疫與醫護的所有人員，讓我們都能在台灣健康的生活，謝謝!"
+                TextColor="Gray"
+                VerticalTextAlignment="Center" />
+            <Label
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Center"
+                Text="App 版本:"
+                TextColor="Gray"
+                VerticalTextAlignment="Center" />
+            <Label
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Center"
+                Text="{Binding AppVersion}"
+                TextColor="Gray"
+                VerticalTextAlignment="Center" />
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>
