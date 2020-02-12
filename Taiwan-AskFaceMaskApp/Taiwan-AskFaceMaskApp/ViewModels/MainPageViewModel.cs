@@ -5,6 +5,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 
 using Xamarin.Forms.GoogleMaps;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace Taiwan_AskFaceMaskApp.ViewModels
 {
@@ -34,6 +36,13 @@ namespace Taiwan_AskFaceMaskApp.ViewModels
 			set { OnPropertyChanged<CameraUpdate>(ref _mapCameraUpdate, value); }
 		}
 
+		private bool _isRunning;
+
+		public bool IsRunning
+		{
+			get { return _isRunning; }
+			set { OnPropertyChanged<bool>(ref _isRunning, value); }
+		}
 
 		public MainPageViewModel()
 		{
@@ -71,6 +80,24 @@ namespace Taiwan_AskFaceMaskApp.ViewModels
 						DrugStoreId = drugStore.DrugStoreId
 					}
 				);
+		}
+
+		public ICommand ToolbarItemCommand
+		{
+			get
+			{
+				return new Command(async () =>
+				{
+					if (IsOnInternet)
+					{
+						IsRunning = true;
+						await Services.DbService.Instance.UpdateFaceMaskInDrugStoreData();
+						IsRunning = false;
+						return;
+					}
+					await (App.Current as App).MainPage.DisplayAlert("網路連線錯誤", "請檢查裝置連線狀態...", "好");
+				});
+			}
 		}
 	}
 }

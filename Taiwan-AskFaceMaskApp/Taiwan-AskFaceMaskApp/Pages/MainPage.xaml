@@ -12,6 +12,9 @@
     <ContentPage.BindingContext>
         <viewmodels:MainPageViewModel />
     </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding ToolbarItemCommand}" Text="更新口罩資料" />
+    </ContentPage.ToolbarItems>
     <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
@@ -52,6 +55,12 @@
             TextColor="#06AF8F"
             VerticalOptions="CenterAndExpand"
             VerticalTextAlignment="Center" />
-
+        <StackLayout
+            BackgroundColor="White"
+            HorizontalOptions="FillAndExpand"
+            IsVisible="{Binding IsRunning}"
+            Opacity="0.8"
+            VerticalOptions="FillAndExpand" />
+        <ActivityIndicator HorizontalOptions="CenterAndExpand" IsRunning="{Binding IsRunning}" VerticalOptions="CenterAndExpand" Color="Orange" />
     </Grid>
 </pages:BasePage>
