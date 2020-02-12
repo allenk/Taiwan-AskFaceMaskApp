@@ -26,6 +26,14 @@ namespace Taiwan_AskFaceMaskApp.ViewModels
 			set { OnPropertyChanged<bool>(ref _isRunning, value); }
 		}
 
+		private bool _isSearched;
+
+		public bool IsSearched
+		{
+			get { return _isSearched; }
+			set { OnPropertyChanged<bool>(ref _isSearched, value); }
+		}
+
 
 		public DrugStoresPageViewModel()
 		{
@@ -40,6 +48,7 @@ namespace Taiwan_AskFaceMaskApp.ViewModels
 				return new Command<string>((query) =>
 				{
 					DrugStores = DbService.Instance.GetDrugStoreData(query);
+					IsSearched = true;
 				});
 			}
 		}
@@ -50,8 +59,8 @@ namespace Taiwan_AskFaceMaskApp.ViewModels
 			{
 				return new Command(async () =>
 				{
-					if(IsOnInternet)
-					{ 
+					if (IsOnInternet)
+					{
 						IsRunning = true;
 						await DbService.Instance.UpdateFaceMaskInDrugStoreData();
 						IsRunning = false;

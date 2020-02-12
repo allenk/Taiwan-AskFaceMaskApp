@@ -35,5 +35,15 @@ namespace Taiwan_AskFaceMaskApp.Pages
 
             (sender as ListView).SelectedItem = null;
         }
+
+        private void KeywrodSearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var vm = (sender as SearchBar).BindingContext as ViewModels.DrugStoresPageViewModel;
+            if (vm.IsSearched && e.NewTextValue?.Length == 0 && e.OldTextValue?.Length > 0)
+            {
+                vm.SearchCommand.Execute(string.Empty);
+                vm.IsSearched = false;
+            }
+        }
     }
 }
