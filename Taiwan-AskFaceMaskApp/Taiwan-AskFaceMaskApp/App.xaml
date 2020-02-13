@@ -9,5 +9,7 @@
     mc:Ignorable="d">
     <Application.Resources>
         <converters:ReverseBoolConverter x:Key="ReverseBool" />
+        <!--  尚未針對深色模式最佳化。  -->
+        <Color x:Key="TmpBackgroundColor">White</Color>
     </Application.Resources>
 </Application>

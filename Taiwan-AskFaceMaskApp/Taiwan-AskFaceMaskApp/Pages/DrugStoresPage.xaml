@@ -30,6 +30,7 @@
             <ListView
                 Grid.Row="1"
                 Margin="0,0,0,4"
+                BackgroundColor="{x:StaticResource TmpBackgroundColor}"
                 CachingStrategy="RecycleElement"
                 HasUnevenRows="True"
                 ItemTapped="ListView_ItemTapped"
