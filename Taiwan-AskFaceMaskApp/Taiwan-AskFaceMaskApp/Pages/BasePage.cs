@@ -9,6 +9,11 @@ namespace Taiwan_AskFaceMaskApp.Pages
 {
     public class BasePage : ContentPage
     {
+        public BasePage()
+        {
+            //TODO 尚未針對深色模式最佳化。
+            BackgroundColor =(Color)Application.Current.Resources["TmpBackgroundColor"];
+        }
         protected override void OnAppearing()
         {
             base.OnAppearing();

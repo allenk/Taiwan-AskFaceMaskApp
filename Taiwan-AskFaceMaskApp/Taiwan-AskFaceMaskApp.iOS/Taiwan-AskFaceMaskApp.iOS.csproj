@@ -26,6 +26,7 @@
     <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
+    <CodesignKey>Apple Developer</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -33,8 +34,9 @@
     <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <MtouchLink>None</MtouchLink>
+    <MtouchLink>SdkOnly</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
+    <MtouchUseLlvm>true</MtouchUseLlvm>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,11 +47,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>Apple Development</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchLink>None</MtouchLink>
     <MtouchInterpreter>-all</MtouchInterpreter>
+    <CodesignProvision>
+    </CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -58,8 +62,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>Apple Distribution</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchUseLlvm>true</MtouchUseLlvm>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Store|iPhoneSimulator'">
     <OutputPath>bin\iPhoneSimulator\Store\</OutputPath>
@@ -70,6 +75,8 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <MtouchArch>x86_64</MtouchArch>
+    <OptimizePNGs>true</OptimizePNGs>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Store|iPhone'">
     <OutputPath>bin\iPhone\Store\</OutputPath>
@@ -80,15 +87,54 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <MtouchArch>ARM64</MtouchArch>
+    <OptimizePNGs>true</OptimizePNGs>
+    <MtouchInterpreter>-all</MtouchInterpreter>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignKey>Apple Distribution</CodesignKey>
+    <CodesignProvision />
+    <CodesignExtraArgs />
+    <CodesignResourceRules />
+    <CodesignEntitlements />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
   </PropertyGroup>
+  <Choose>
+	<When Condition=" '$(Configuration)' == 'Debug' ">
+		<ItemGroup>
+			<Compile Include="ConfigSettings\Dev\AppDelegate.cs" >
+				<LogicalName>AppDelegate.cs</LogicalName>
+			</Compile>
+			<None Include="ConfigSettings\Dev\Info.plist">
+				<LogicalName>Info.plist</LogicalName>
+			</None>
+		</ItemGroup>
+	</When>
+	<When Condition=" '$(Configuration)' == 'Release' ">
+		<ItemGroup>
+			<Compile Include="ConfigSettings\Prod\AppDelegate.cs" >
+				<LogicalName>AppDelegate.cs</LogicalName>
+			</Compile>
+			<None Include="ConfigSettings\Prod\Info.plist">
+				<LogicalName>Info.plist</LogicalName>
+			</None>
+		</ItemGroup>
+	</When>
+	<When Condition=" '$(Configuration)' == 'Store' ">
+		<ItemGroup>
+			<Compile Include="ConfigSettings\Store\AppDelegate.cs" >
+				<LogicalName>AppDelegate.cs</LogicalName>
+			</Compile>
+			<None Include="ConfigSettings\Store\Info.plist">
+				<LogicalName>Info.plist</LogicalName>
+			</None>
+		</ItemGroup>
+	</When>
+  </Choose>
   <ItemGroup>
     <Compile Include="Main.cs" />
-    <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
-    <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -214,5 +260,11 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\facemaskrealname%402x.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\news%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\news%403x.png" />
   </ItemGroup>
 </Project>

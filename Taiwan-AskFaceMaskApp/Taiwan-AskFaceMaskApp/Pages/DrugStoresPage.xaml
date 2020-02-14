@@ -30,6 +30,7 @@
             <ListView
                 Grid.Row="1"
                 Margin="0,0,0,4"
+                BackgroundColor="{x:StaticResource TmpBackgroundColor}"
                 CachingStrategy="RecycleElement"
                 HasUnevenRows="True"
                 ItemTapped="ListView_ItemTapped"
@@ -37,7 +38,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid Margin="6,4" RowSpacing="0">
+                            <Grid Margin="6,4" ColumnSpacing="0" RowSpacing="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*" />
                                     <ColumnDefinition Width="3*" />
@@ -64,7 +65,7 @@
                                     BackgroundColor="#06AF8F"
                                     Command="{Binding CallPhoneToDrugStoreCommand}"
                                     CommandParameter="{Binding Tel}"
-                                    HorizontalOptions="CenterAndExpand"
+                                    HorizontalOptions="FillAndExpand"
                                     Text="撥電話"
                                     TextColor="White"
                                     VerticalOptions="CenterAndExpand" />
