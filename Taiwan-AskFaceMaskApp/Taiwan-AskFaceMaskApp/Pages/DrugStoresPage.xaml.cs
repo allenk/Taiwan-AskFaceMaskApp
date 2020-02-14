@@ -21,7 +21,7 @@ namespace Taiwan_AskFaceMaskApp.Pages
         {
             var selectedDrugStore = (sender as ListView).SelectedItem as Models.DrugStore;
             var faceMaskInDrugStore = DbService.Instance.GetFaceMaskData(selectedDrugStore.DrugStoreId);
-            var needNavigation = await DisplayAlert("資料結果", $"{selectedDrugStore.Name}\r\n\r\n成人口罩總剩餘數: { faceMaskInDrugStore.AdultCount}\r\n兒童口罩剩餘數: {faceMaskInDrugStore.ChildCount}\r\n\r\n來源資料時間: {faceMaskInDrugStore.DataSourceTime}", "導航至藥局", "好，知道了!");
+            var needNavigation = await DisplayAlert("資料結果", $"{selectedDrugStore.Name}\r\n\r\n成人口罩剩餘數: { faceMaskInDrugStore.AdultCount}\r\n兒童口罩剩餘數: {faceMaskInDrugStore.ChildCount}\r\n\r\n來源資料時間: {faceMaskInDrugStore.DataSourceTime}", "導航至藥局", "好，知道了!");
 
             if (needNavigation)
             {
