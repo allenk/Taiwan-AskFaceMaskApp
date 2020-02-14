@@ -26,8 +26,7 @@
     <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignKey>iPhone Developer</CodesignKey>
-    <CodesignProvision />
+    <CodesignKey>Apple Developer</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -37,6 +36,7 @@
     <WarningLevel>4</WarningLevel>
     <MtouchLink>SdkOnly</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
+    <MtouchUseLlvm>true</MtouchUseLlvm>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,7 +47,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>Apple Development</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchLink>None</MtouchLink>
@@ -62,7 +62,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignKey>Apple Distribution</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchUseLlvm>true</MtouchUseLlvm>
   </PropertyGroup>
@@ -91,8 +91,7 @@
     <OptimizePNGs>true</OptimizePNGs>
     <MtouchInterpreter>-all</MtouchInterpreter>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignKey>iPhone Distribution</CodesignKey>
-    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignKey>Apple Distribution</CodesignKey>
     <CodesignProvision />
     <CodesignExtraArgs />
     <CodesignResourceRules />
@@ -101,11 +100,41 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
   </PropertyGroup>
+  <Choose>
+	<When Condition=" '$(Configuration)' == 'Debug' ">
+		<ItemGroup>
+			<Compile Include="ConfigSettings\Dev\AppDelegate.cs" >
+				<LogicalName>AppDelegate.cs</LogicalName>
+			</Compile>
+			<None Include="ConfigSettings\Dev\Info.plist">
+				<LogicalName>Info.plist</LogicalName>
+			</None>
+		</ItemGroup>
+	</When>
+	<When Condition=" '$(Configuration)' == 'Release' ">
+		<ItemGroup>
+			<Compile Include="ConfigSettings\Prod\AppDelegate.cs" >
+				<LogicalName>AppDelegate.cs</LogicalName>
+			</Compile>
+			<None Include="ConfigSettings\Prod\Info.plist">
+				<LogicalName>Info.plist</LogicalName>
+			</None>
+		</ItemGroup>
+	</When>
+	<When Condition=" '$(Configuration)' == 'Store' ">
+		<ItemGroup>
+			<Compile Include="ConfigSettings\Store\AppDelegate.cs" >
+				<LogicalName>AppDelegate.cs</LogicalName>
+			</Compile>
+			<None Include="ConfigSettings\Store\Info.plist">
+				<LogicalName>Info.plist</LogicalName>
+			</None>
+		</ItemGroup>
+	</When>
+  </Choose>
   <ItemGroup>
     <Compile Include="Main.cs" />
-    <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
-    <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
