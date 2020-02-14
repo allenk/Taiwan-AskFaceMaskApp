@@ -23,7 +23,7 @@
     <key>MinimumOSVersion</key>
     <string>9.0</string>
     <key>CFBundleDisplayName</key>
-    <string>Taiwan AskFaceMask App</string>
+    <string>問口罩</string>
     <key>CFBundleIdentifier</key>
     <string>com.company.askfacemaskapp</string>
     <key>CFBundleVersion</key>

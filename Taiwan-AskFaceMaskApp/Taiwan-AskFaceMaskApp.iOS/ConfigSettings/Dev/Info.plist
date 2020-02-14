@@ -23,9 +23,9 @@
     <key>MinimumOSVersion</key>
     <string>9.0</string>
     <key>CFBundleDisplayName</key>
-    <string>Taiwan AskFaceMask App</string>
+    <string>Dev: AskFaceMask App</string>
     <key>CFBundleIdentifier</key>
-    <string>com.company.askfacemaskapp</string>
+    <string>com.company.dev.askfacemaskapp</string>
     <key>CFBundleVersion</key>
     <string>1.0.0</string>
     <key>UILaunchStoryboardName</key>
