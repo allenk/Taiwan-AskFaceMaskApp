@@ -12,5 +12,7 @@ namespace Taiwan_AskFaceMaskApp.Models
         public string Address { get; set; }
         public string Tel { get; set; }
         public Position Location { get; set; }
+
+        public string Note { get; set; }
     }
 }

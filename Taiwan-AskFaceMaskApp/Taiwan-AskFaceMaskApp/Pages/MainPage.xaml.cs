@@ -28,7 +28,9 @@ namespace Taiwan_AskFaceMaskApp.Pages
             if (!string.IsNullOrEmpty(pinPlace?.DrugStoreId))
             {
                 var faceMaskInDrugStore = Services.DbService.Instance.GetFaceMaskData(pinPlace?.DrugStoreId);
-                var needNavigation = await DisplayAlert("資料結果", $"{pinPlace.Name}\r\n\r\n成人口罩剩餘數: { faceMaskInDrugStore.AdultCount}\r\n兒童口罩剩餘數: {faceMaskInDrugStore.ChildCount}\r\n\r\n來源資料時間: {faceMaskInDrugStore.DataSourceTime}", "導航至藥局", "好，知道了!");
+                
+                var selectedPinPlaceNote = string.IsNullOrEmpty(pinPlace.Note) ? "" : $"\r\n\r\n備註: {pinPlace.Note}";
+                var needNavigation = await DisplayAlert("資料結果", $"{pinPlace.Name}\r\n\r\n成人口罩剩餘數: { faceMaskInDrugStore.AdultCount}\r\n兒童口罩剩餘數: {faceMaskInDrugStore.ChildCount}{selectedPinPlaceNote}\r\n\r\n來源資料時間: {faceMaskInDrugStore.DataSourceTime}", "導航至藥局", "好，知道了!");
 
                 if (needNavigation)
                 {

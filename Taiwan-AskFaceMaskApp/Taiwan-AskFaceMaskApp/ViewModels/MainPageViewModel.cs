@@ -85,7 +85,8 @@ namespace Taiwan_AskFaceMaskApp.ViewModels
 						Address = drugStore.Address,
 						Tel = drugStore.Tel,
 						Location = new Position(drugStore.Lat, drugStore.Lng),
-						DrugStoreId = drugStore.DrugStoreId
+						DrugStoreId = drugStore.DrugStoreId,
+						Note = drugStore.Note
 					}
 				);
 		}
