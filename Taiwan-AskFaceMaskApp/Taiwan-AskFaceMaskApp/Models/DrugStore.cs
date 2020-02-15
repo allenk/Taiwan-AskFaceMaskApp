@@ -15,11 +15,14 @@ namespace Taiwan_AskFaceMaskApp.Models
         public int Id { get; set; }
         public string DrugStoreId { get; set; }
         public string Name { get; set; }
+        public string StoreType { get; set; }
         public string Address { get; set; }
         public string Tel { get; set; }
         public float Lat { get; set; }
         public float Lng { get; set; }
         public string Area { get; set; }
+        public string OpenTimes { get; set; }
+        public string Note { get; set; }
 
         [Ignore]
         public ICommand CallPhoneToDrugStoreCommand

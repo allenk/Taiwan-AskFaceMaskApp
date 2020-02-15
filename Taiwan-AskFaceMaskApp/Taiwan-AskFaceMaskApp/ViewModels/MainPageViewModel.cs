@@ -7,6 +7,7 @@ using System.Linq;
 using Xamarin.Forms.GoogleMaps;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Newtonsoft.Json;
 
 namespace Taiwan_AskFaceMaskApp.ViewModels
 {
@@ -49,24 +50,31 @@ namespace Taiwan_AskFaceMaskApp.ViewModels
 			IsEnabled = true;
 
 			//Hack 1:
-			//搭配只顯示 衛生福利部中央健康保險署 地標
+			//搭配 衛生福利部中央健康保險署 地標，讓地圖顯示該點
 			//MapCameraUpdate = CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(25.033308, 121.540232), 14.6, 0, 0));
 
-			//台灣地理中心 : 搭配地圖顯示全台灣的藥局
-			MapCameraUpdate = CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(23.974004, 120.979703), 7.3, 0, 0));
+			//Hack 2:
+			//搭配 台灣地理中心 地標，讓地圖顯示全台灣藥局點
+			var taiwanCenterCameraPosition = new Utilities.ExtensionCameraPosition(new CameraPosition(new Position(23.974004, 120.979703), 7.3,  0, 0));
+			
+			var initExtensionCameraPosition = Xamarin.Essentials.Preferences.Get("LastCameraPosition", JsonConvert.SerializeObject(taiwanCenterCameraPosition));
+			MapCameraUpdate = CameraUpdateFactory.NewCameraPosition(JsonConvert.DeserializeObject<Utilities.ExtensionCameraPosition>(initExtensionCameraPosition).ConvertToCameraPosition());
 
 			Places = BuildPlaces();
 		}
 
+
 		private ObservableCollection<Models.Place> BuildPlaces()
 		{
-			//Hack
+			//Hack 1:
 			//衛生福利部中央健康保險署
 			//return new ObservableCollection<Models.Place>() 
 			//{ 
 			//	new Models.Place() { Name= "衛生福利部中央健康保險署", Address = "台北市大安區信義路三段140號" , Tel = "02-27065866" , Location = new Position(25.033308, 121.540232) } 
 			//};
 
+			//Hack 2:
+			//在地圖顯示全台灣的藥局
 			var drugStorePlaces = Services.DbService.Instance.GetDrugStoreData();
 
 			return new ObservableCollection<Models.Place>(
@@ -77,7 +85,8 @@ namespace Taiwan_AskFaceMaskApp.ViewModels
 						Address = drugStore.Address,
 						Tel = drugStore.Tel,
 						Location = new Position(drugStore.Lat, drugStore.Lng),
-						DrugStoreId = drugStore.DrugStoreId
+						DrugStoreId = drugStore.DrugStoreId,
+						Note = drugStore.Note
 					}
 				);
 		}
