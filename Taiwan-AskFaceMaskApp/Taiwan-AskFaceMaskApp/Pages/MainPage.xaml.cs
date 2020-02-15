@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -27,7 +28,9 @@ namespace Taiwan_AskFaceMaskApp.Pages
             if (!string.IsNullOrEmpty(pinPlace?.DrugStoreId))
             {
                 var faceMaskInDrugStore = Services.DbService.Instance.GetFaceMaskData(pinPlace?.DrugStoreId);
-                var needNavigation = await DisplayAlert("資料結果", $"{pinPlace.Name}\r\n\r\n成人口罩總剩餘數: { faceMaskInDrugStore.AdultCount}\r\n兒童口罩剩餘數: {faceMaskInDrugStore.ChildCount}\r\n\r\n來源資料時間: {faceMaskInDrugStore.DataSourceTime}", "導航至藥局", "好，知道了!");
+                
+                var selectedPinPlaceNote = string.IsNullOrEmpty(pinPlace.Note) ? "" : $"\r\n\r\n備註: {pinPlace.Note}";
+                var needNavigation = await DisplayAlert("資料結果", $"{pinPlace.Name}\r\n\r\n成人口罩剩餘數: { faceMaskInDrugStore.AdultCount}\r\n兒童口罩剩餘數: {faceMaskInDrugStore.ChildCount}{selectedPinPlaceNote}\r\n\r\n來源資料時間: {faceMaskInDrugStore.DataSourceTime}", "導航至藥局", "好，知道了!");
 
                 if (needNavigation)
                 {
@@ -44,7 +47,12 @@ namespace Taiwan_AskFaceMaskApp.Pages
 
         private void Map_PinClicked(object sender, PinClickedEventArgs e)
         {
-            (sender as Map).MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(e.Pin.Position, 12.6, 0, 0)));
+            var map = sender as Map;
+            var currentCameraPosition = new CameraPosition(e.Pin.Position, map.CameraPosition.Zoom, 0, 0);
+            map.MoveCamera(CameraUpdateFactory.NewCameraPosition(currentCameraPosition));
+            
+            Xamarin.Essentials.Preferences.Set("LastCameraPosition", JsonConvert.SerializeObject(new Utilities.ExtensionCameraPosition(currentCameraPosition)));
+            (BindingContext as ViewModels.MainPageViewModel).MapCameraUpdate = CameraUpdateFactory.NewCameraPosition(currentCameraPosition);
         }
     }
 }

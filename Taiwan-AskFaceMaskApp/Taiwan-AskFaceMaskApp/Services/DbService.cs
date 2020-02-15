@@ -107,7 +107,7 @@ namespace Taiwan_AskFaceMaskApp.Services
 
                 DrugStoresDbConnection.CreateTable<Models.FaceMaskInDrugStore>();
 
-                System.Diagnostics.Debug.WriteLine(faceMaskData?.Count);
+                System.Diagnostics.Debug.WriteLine($"DBService-FaceMaskInDrugStoreData Count: {faceMaskData?.Count}");
 
                 DrugStoresDbConnection.InsertAll(faceMaskData, true);
             }
@@ -153,7 +153,7 @@ namespace Taiwan_AskFaceMaskApp.Services
                     DrugStoresDbConnection.CreateTable<Models.DrugStore>();
 
                     var drugStores = JsonConvert.DeserializeObject<List<Models.DrugStore>>(drugStoreData);
-                    System.Diagnostics.Debug.WriteLine(drugStores);
+                    System.Diagnostics.Debug.WriteLine($"DBService-DrugStoreData Count: {drugStores?.Count}");
 
                     DrugStoresDbConnection.InsertAll(drugStores, true);
                 }
