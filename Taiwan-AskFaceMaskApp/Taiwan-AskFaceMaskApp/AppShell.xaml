@@ -8,8 +8,8 @@
     xmlns:pages="clr-namespace:Taiwan_AskFaceMaskApp.Pages"
     mc:Ignorable="d">
     <Shell.FlyoutHeader>
-        <StackLayout BackgroundColor="#EFEFEF" HeightRequest="420">
-            <Image Aspect="AspectFit" Source="facemaskrealname.jpg" />
+        <StackLayout BackgroundColor="#EFEFEF">
+            <Image Aspect="AspectFill" HeightRequest="524" Source="facemaskrealname.jpg" />
         </StackLayout>
     </Shell.FlyoutHeader>
     <FlyoutItem Title="搜尋藥局" Icon="drugstore.png" Route="DrugStore">
