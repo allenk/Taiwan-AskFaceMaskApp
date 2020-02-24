@@ -9,7 +9,7 @@
     mc:Ignorable="d">
     <Shell.FlyoutHeader>
         <StackLayout BackgroundColor="#EFEFEF">
-            <Image Aspect="AspectFill" HeightRequest="524" Source="facemaskrealname.jpg" />
+            <Image Aspect="AspectFit" HeightRequest="424" Source="facemaskrealname.jpg" />
         </StackLayout>
     </Shell.FlyoutHeader>
     <FlyoutItem Title="搜尋藥局" Icon="drugstore.png" Route="DrugStore">

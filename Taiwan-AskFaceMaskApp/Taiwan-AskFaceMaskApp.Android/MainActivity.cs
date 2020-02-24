@@ -1,20 +1,16 @@
-﻿using System;
-
+﻿
 using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
-
+using Android.Runtime;
 using System.Collections.Concurrent;
 using Xamarin.Forms.GoogleMaps.Android;
-using AndroidBitmapDescriptor = Android.Gms.Maps.Model.BitmapDescriptor;
 using Xamarin.Forms.GoogleMaps.Android.Factories;
+using AndroidBitmapDescriptor = Android.Gms.Maps.Model.BitmapDescriptor;
 
 namespace Taiwan_AskFaceMaskApp.Droid
 {
-    [Activity(Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Icon = "@mipmap/icon", Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
