@@ -170,19 +170,19 @@ namespace Taiwan_AskFaceMaskApp.Droid
 			public const int AppCompatDialogStyle = 2131099648;
 			
 			// aapt resource value: 0x7F060001
-			public const int MainTheme = 2131099649;
+			public const int LauncherTheme = 2131099649;
 			
 			// aapt resource value: 0x7F060002
-			public const int MainTheme_Base = 2131099650;
+			public const int LauncherTheme_Base = 2131099650;
 			
 			// aapt resource value: 0x7F060003
-			public const int MyTheme = 2131099651;
+			public const int LauncherTheme_Splash = 2131099651;
 			
 			// aapt resource value: 0x7F060004
-			public const int MyTheme_Base = 2131099652;
+			public const int MainTheme = 2131099652;
 			
 			// aapt resource value: 0x7F060005
-			public const int MyTheme_Splash = 2131099653;
+			public const int MainTheme_Base = 2131099653;
 			
 			static Style()
 			{
