@@ -87,6 +87,9 @@ namespace Taiwan_AskFaceMaskApp.Droid
 			// aapt resource value: 0x7F020005
 			public const int search = 2130837509;
 			
+			// aapt resource value: 0x7F020006
+			public const int splash_screen = 2130837510;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -145,7 +148,10 @@ namespace Taiwan_AskFaceMaskApp.Droid
 			public const int icon_round = 2131034113;
 			
 			// aapt resource value: 0x7F050002
-			public const int launcher_foreground = 2131034114;
+			public const int launcher = 2131034114;
+			
+			// aapt resource value: 0x7F050003
+			public const int launcher_foreground = 2131034115;
 			
 			static Mipmap()
 			{
@@ -168,6 +174,15 @@ namespace Taiwan_AskFaceMaskApp.Droid
 			
 			// aapt resource value: 0x7F060002
 			public const int MainTheme_Base = 2131099650;
+			
+			// aapt resource value: 0x7F060003
+			public const int MyTheme = 2131099651;
+			
+			// aapt resource value: 0x7F060004
+			public const int MyTheme_Base = 2131099652;
+			
+			// aapt resource value: 0x7F060005
+			public const int MyTheme_Splash = 2131099653;
 			
 			static Style()
 			{
