@@ -101,36 +101,36 @@
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <Choose>
-	<When Condition=" '$(Configuration)' == 'Debug' ">
-		<ItemGroup>
-			<Compile Include="ConfigSettings\Dev\AppDelegate.cs" >
-				<LogicalName>AppDelegate.cs</LogicalName>
-			</Compile>
-			<None Include="ConfigSettings\Dev\Info.plist">
-				<LogicalName>Info.plist</LogicalName>
-			</None>
-		</ItemGroup>
-	</When>
-	<When Condition=" '$(Configuration)' == 'Release' ">
-		<ItemGroup>
-			<Compile Include="ConfigSettings\Prod\AppDelegate.cs" >
-				<LogicalName>AppDelegate.cs</LogicalName>
-			</Compile>
-			<None Include="ConfigSettings\Prod\Info.plist">
-				<LogicalName>Info.plist</LogicalName>
-			</None>
-		</ItemGroup>
-	</When>
-	<When Condition=" '$(Configuration)' == 'Store' ">
-		<ItemGroup>
-			<Compile Include="ConfigSettings\Store\AppDelegate.cs" >
-				<LogicalName>AppDelegate.cs</LogicalName>
-			</Compile>
-			<None Include="ConfigSettings\Store\Info.plist">
-				<LogicalName>Info.plist</LogicalName>
-			</None>
-		</ItemGroup>
-	</When>
+    <When Condition=" '$(Configuration)' == 'Debug' ">
+      <ItemGroup>
+        <Compile Include="ConfigSettings\Dev\AppDelegate.cs">
+          <LogicalName>AppDelegate.cs</LogicalName>
+        </Compile>
+        <None Include="ConfigSettings\Dev\Info.plist">
+          <LogicalName>Info.plist</LogicalName>
+        </None>
+      </ItemGroup>
+    </When>
+    <When Condition=" '$(Configuration)' == 'Release' ">
+      <ItemGroup>
+        <Compile Include="ConfigSettings\Prod\AppDelegate.cs">
+          <LogicalName>AppDelegate.cs</LogicalName>
+        </Compile>
+        <None Include="ConfigSettings\Prod\Info.plist">
+          <LogicalName>Info.plist</LogicalName>
+        </None>
+      </ItemGroup>
+    </When>
+    <When Condition=" '$(Configuration)' == 'Store' ">
+      <ItemGroup>
+        <Compile Include="ConfigSettings\Store\AppDelegate.cs">
+          <LogicalName>AppDelegate.cs</LogicalName>
+        </Compile>
+        <None Include="ConfigSettings\Store\Info.plist">
+          <LogicalName>Info.plist</LogicalName>
+        </None>
+      </ItemGroup>
+    </When>
   </Choose>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -200,13 +200,18 @@
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.6.292</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991640" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.4.0" />
+    <PackageReference Include="Xamarin.Build.Download">
+      <Version>0.9.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>1.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
     <PackageReference Include="Xamarin.Forms.GoogleMaps">
       <Version>3.3.0</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Google.iOS.Maps">
-      <Version>3.5.0.1</Version>
+      <Version>3.7.0</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
